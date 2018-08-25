@@ -22,7 +22,11 @@ Most PIN code inputs components implemented by combining several TextInputs. The
 ## Installation
 
 ```sh
+# yarn
 yarn add react-native-smooth-pincode-input
+
+# npm
+npm i react-native-smooth-pincode-input
 ```
 
 ## Examples
