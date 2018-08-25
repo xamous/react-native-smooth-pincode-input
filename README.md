@@ -17,7 +17,7 @@ Most PIN code inputs components implemented by combining several TextInputs. The
 - Customizable text style
 - Password mode
 - Customizable password mask and placeholder characters
-- Built in shake animation
+- Built in shake animation (Credit to [react-native-animatable](https://github.com/oblador/react-native-animatable))
 
 ## Installation
 
