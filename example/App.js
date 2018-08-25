@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SmoothPinCodeInput from './SmoothPinCodeInput';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
 export default class App extends React.Component {
 
