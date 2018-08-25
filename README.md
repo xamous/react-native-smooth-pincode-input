@@ -1,9 +1,5 @@
 # React Native Smooth Pincode Input
 
-[![Build Status][build-badge]][build]
-[![Version][version-badge]][package]
-[![MIT License][license-badge]][license]
-
 A cross-platform, smooth, lightweight, customizable PIN code input component for React Native.
 
 Most PIN code inputs components implemented by combining several TextInputs. They works, however, not good enough. When user types fast, or system sluggish, characters may lost when component switching focus between TextInputs. User need to type over and over again to get a correct input, gave a frustrated user experience.

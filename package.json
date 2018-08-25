@@ -1,25 +1,26 @@
 {
   "name": "react-native-smooth-pincode-input",
   "version": "1.0.0",
-  "description": "",
+  "description": "A cross-platform, smooth, lightweight, customizable PIN code input component for React Native.",
   "main": "src/index.js",
   "scripts": {
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ide/react-native-button.git"
+    "url": "https://github.com/xamous/react-native-smooth-pincode-input.git"
   },
   "keywords": [
     "react-native",
-    "button",
-    "component"
+    "pincode",
+    "password",
+    "TextInput"
   ],
-  "author": "James Ide",
+  "author": "William Shih <xamous@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ide/react-native-button/issues"
+    "url": "https://github.com/xamous/react-native-smooth-pincode-input/issues"
   },
-  "homepage": "https://github.com/ide/react-native-button",
+  "homepage": "https://github.com/xamous/react-native-smooth-pincode-input",
   "peerDependencies": {
     "react-native": "*",
     "react-native-animatable": "^1.3.0"
