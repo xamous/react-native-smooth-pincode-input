@@ -72,7 +72,7 @@ npm i react-native-smooth-pincode-input
   />
 ```
 
-### Cusmomized style
+### Customized style
 <img src="./demo/customize.gif">
 
 ```js
