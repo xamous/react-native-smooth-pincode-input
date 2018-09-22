@@ -88,6 +88,7 @@ class SmoothPinCodeInput extends Component {
       cellStyleFocused,
       textStyle,
       textStyleFocused,
+      keyboardType,
     } = this.props;
     const { maskDelay, focused } = this.state;
     return (
@@ -154,7 +155,7 @@ class SmoothPinCodeInput extends Component {
           onBlur={() => this._onFocused(false)}
           spellCheck={false}
           autoFocus={autoFocus}
-          keyboardType="numeric"
+          keyboardType={keyboardType}
           numberOfLines={1}
           maxLength={codeLength}
           selection={{
@@ -178,6 +179,7 @@ class SmoothPinCodeInput extends Component {
     placeholder: '',
     password: false,
     mask: '*',
+    keyboardType: 'numeric',
     autoFocus: false,
     containerStyle: styles.containerDefault,
     cellStyle: styles.cellDefault,
@@ -215,6 +217,8 @@ SmoothPinCodeInput.propTypes = {
   onFulfill: PropTypes.func,
   onChangeText: PropTypes.func,
   onBackspace: PropTypes.func,
+
+  keyboardType: PropTypes.string,
 };
 
 export default SmoothPinCodeInput;
