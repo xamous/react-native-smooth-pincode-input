@@ -148,6 +148,7 @@ class SmoothPinCodeInput extends Component {
           }
         </View>
         <TextInput
+          {...this.props}
           value={value}
           onChangeText={this._inputCode}
           onKeyPress={this._keyPress}
