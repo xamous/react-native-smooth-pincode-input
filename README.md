@@ -100,7 +100,8 @@ npm i react-native-smooth-pincode-input
   />
 ```
 
-### Available props
+
+## Available props
 
 | Name             | Type                                                                                  | Default                                    | Description                                                                                 |
 | ---------------- | ------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------- |
@@ -121,3 +122,8 @@ npm i react-native-smooth-pincode-input
 | onTextChange     | Function                                                                              | null                                       | Callback function that's called when the text changed                                       |
 | onBackspace      | Function                                                                              | null                                       | Callback function that's called when the input is empty and the backspace button is pressed |
 | keyboardType     | Enum('default', 'number-pad', 'decimal-pad', 'numeric', 'email-address', 'phone-pad') | 'numeric'                                  | Determines which keyboard to open                                                           |
+
+## Thanks to contributors
+* [Marcus Vinicius](https://github.com/MarcwL22)
+* [Fellipe Chagas](https://github.com/chagasaway)
+* [Erjan Kalybek](https://github.com/erjanmx)
