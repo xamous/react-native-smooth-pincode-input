@@ -124,6 +124,7 @@ npm i react-native-smooth-pincode-input
 | keyboardType     | Enum('default', 'number-pad', 'decimal-pad', 'numeric', 'email-address', 'phone-pad') | 'numeric'                                  | Determines which keyboard to open                                                           |
 
 ## Thanks to contributors
+* [Matias Alvin](https://github.com/alvinmatias69)
 * [Marcus Vinicius](https://github.com/MarcwL22)
 * [Fellipe Chagas](https://github.com/chagasaway)
 * [Erjan Kalybek](https://github.com/erjanmx)
