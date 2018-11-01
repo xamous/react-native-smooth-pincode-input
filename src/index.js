@@ -54,7 +54,7 @@ class SmoothPinCodeInput extends Component {
 
     // handle password mask
     const maskDelay = password &&
-      code.length > this.props.value.length; // only when input new char
+      code.length - 1 > this.props.value.length; // only when input new char
     this.setState({ maskDelay });
     
     if (maskDelay) { // mask password after delay
