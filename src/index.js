@@ -37,10 +37,19 @@ class SmoothPinCodeInput extends Component {
     focused: false,
   }
   ref = React.createRef();
+  inputRef = React.createRef();
 
   shake = () => {
     return this.ref.current.shake(650);
   }
+
+  focus = () => {
+    return this.inputRef.current.focus();
+  };
+
+  blur = () => {
+    return this.inputRef.current.blur();
+  };
 
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
@@ -151,6 +160,7 @@ class SmoothPinCodeInput extends Component {
         <TextInput
           {...this.props}
           value={value}
+          ref={this.inputRef}
           onChangeText={this._inputCode}
           onKeyPress={this._keyPress}
           onFocus={() => this._onFocused(true)}
