@@ -89,6 +89,7 @@ class SmoothPinCodeInput extends Component {
       textStyle,
       textStyleFocused,
       keyboardType,
+      animationFocused,
     } = this.props;
     const { maskDelay, focused } = this.state;
     return (
@@ -126,7 +127,7 @@ class SmoothPinCodeInput extends Component {
                       justifyContent: 'center',
                     }
                   ]}
-                  animation={ idx === value.length && focused ? 'pulse' : null }
+                  animation={ idx === value.length && focused ? animationFocused : null }
                   iterationCount="infinite"
                   duration={500}
                 >
@@ -187,6 +188,7 @@ class SmoothPinCodeInput extends Component {
     cellStyleFocused: styles.cellFocusedDefault,
     textStyle: styles.textStyleDefault,
     textStyleFocused: styles.textStyleFocusedDefault,
+    animationFocused: 'pulse',
   }
 }
 
