@@ -37,10 +37,19 @@ class SmoothPinCodeInput extends Component {
     focused: false,
   }
   ref = React.createRef();
+  inputRef = React.createRef();
 
   shake = () => {
     return this.ref.current.shake(650);
   }
+
+  focus = () => {
+    return this.inputRef.current.focus();
+  };
+
+  blur = () => {
+    return this.inputRef.current.blur();
+  };
 
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
@@ -89,6 +98,7 @@ class SmoothPinCodeInput extends Component {
       textStyle,
       textStyleFocused,
       keyboardType,
+      animationFocused,
     } = this.props;
     const { maskDelay, focused } = this.state;
     return (
@@ -126,7 +136,7 @@ class SmoothPinCodeInput extends Component {
                       justifyContent: 'center',
                     }
                   ]}
-                  animation={ idx === value.length && focused ? 'pulse' : null }
+                  animation={ idx === value.length && focused ? animationFocused : null }
                   iterationCount="infinite"
                   duration={500}
                 >
@@ -150,6 +160,7 @@ class SmoothPinCodeInput extends Component {
         <TextInput
           {...this.props}
           value={value}
+          ref={this.inputRef}
           onChangeText={this._inputCode}
           onKeyPress={this._keyPress}
           onFocus={() => this._onFocused(true)}
@@ -187,6 +198,7 @@ class SmoothPinCodeInput extends Component {
     cellStyleFocused: styles.cellFocusedDefault,
     textStyle: styles.textStyleDefault,
     textStyleFocused: styles.textStyleFocusedDefault,
+    animationFocused: 'pulse',
   }
 }
 
