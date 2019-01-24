@@ -124,7 +124,6 @@ class SmoothPinCodeInput extends Component {
               return (
                 <Animatable.View key={idx}
                   style={[
-                    cellStyle,
                     cellFocused ? cellStyleFocused : {},
                     {
                       width: cellSize,
@@ -134,7 +133,8 @@ class SmoothPinCodeInput extends Component {
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'center',
-                    }
+                    },
+                    cellStyle
                   ]}
                   animation={ idx === value.length && focused ? animationFocused : null }
                   iterationCount="infinite"
