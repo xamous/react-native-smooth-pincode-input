@@ -10,9 +10,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 
 const styles = StyleSheet.create({
-  containerDefault: {
-
-  },
+  containerDefault: {},
   cellDefault: {
     borderColor: 'gray',
     borderWidth: 1,
@@ -35,13 +33,13 @@ class SmoothPinCodeInput extends Component {
   state = {
     maskDelay: false,
     focused: false,
-  }
+  };
   ref = React.createRef();
   inputRef = React.createRef();
 
   shake = () => {
     return this.ref.current.shake(650);
-  }
+  };
 
   focus = () => {
     return this.inputRef.current.focus();
@@ -53,7 +51,7 @@ class SmoothPinCodeInput extends Component {
 
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
-    
+
     if (onTextChange) {
       onTextChange(code);
     }
@@ -65,11 +63,11 @@ class SmoothPinCodeInput extends Component {
     const maskDelay = password &&
       code.length - 1 > this.props.value.length; // only when input new char
     this.setState({ maskDelay });
-    
+
     if (maskDelay) { // mask password after delay
       setTimeout(() => this.setState({ maskDelay: false }), 200);
     }
-  }
+  };
 
   _keyPress = (event) => {
     if (event.nativeEvent.key === 'Backspace') {
@@ -78,11 +76,11 @@ class SmoothPinCodeInput extends Component {
         onBackspace();
       }
     }
-  }
+  };
 
   _onFocused = (focused) => {
     this.setState({ focused });
-  }
+  };
 
   render() {
     const {
@@ -104,12 +102,13 @@ class SmoothPinCodeInput extends Component {
     return (
       <Animatable.View
         ref={this.ref}
-        style={[{ alignItems: 'stretch', flexDirection: 'row', justifyContent: 'center', position: 'relative', 
+        style={[{
+          alignItems: 'stretch', flexDirection: 'row', justifyContent: 'center', position: 'relative',
           width: cellSize * codeLength + cellSpacing * (codeLength - 1),
           height: cellSize,
         },
-        containerStyle,
-      ]}>
+          containerStyle,
+        ]}>
         <View style={{
           position: 'absolute', margin: 0, height: '100%',
           flexDirection: 'row',
@@ -119,10 +118,11 @@ class SmoothPinCodeInput extends Component {
             Array.apply(null, Array(codeLength)).map((_, idx) => {
               const cellFocused = focused && idx === value.length;
               const filled = idx < value.length;
-              const last = idx == value.length - 1;
+              const last = (idx === value.length - 1);
 
               return (
-                <Animatable.View key={idx}
+                <Animatable.View
+                  key={idx}
                   style={[
                     {
                       width: cellSize,
@@ -136,7 +136,7 @@ class SmoothPinCodeInput extends Component {
                     cellStyle,
                     cellFocused ? cellStyleFocused : {},
                   ]}
-                  animation={ idx === value.length && focused ? animationFocused : null }
+                  animation={idx === value.length && focused ? animationFocused : null}
                   iterationCount="infinite"
                   duration={500}
                 >
@@ -145,12 +145,8 @@ class SmoothPinCodeInput extends Component {
                       textStyle,
                       cellFocused ? textStyleFocused : {},
                     ]}>
-                    {filled &&
-                      (password && (!maskDelay || !last)) ? mask : value.charAt(idx)
-                    }
-                    {!filled &&
-                      placeholder
-                    }
+                    {filled && (password && (!maskDelay || !last)) ? mask : value.charAt(idx)}
+                    {!filled && placeholder}
                   </Text>
                 </Animatable.View>
               );
@@ -177,7 +173,7 @@ class SmoothPinCodeInput extends Component {
             flex: 1,
             opacity: 0,
             textAlign: 'center',
-          }}/>
+          }} />
       </Animatable.View>
     );
   }
@@ -198,7 +194,7 @@ class SmoothPinCodeInput extends Component {
     textStyle: styles.textStyleDefault,
     textStyleFocused: styles.textStyleFocusedDefault,
     animationFocused: 'pulse',
-  }
+  };
 }
 
 SmoothPinCodeInput.propTypes = {
@@ -217,7 +213,7 @@ SmoothPinCodeInput.propTypes = {
 
   cellStyle: ViewPropTypes.style,
   cellStyleFocused: ViewPropTypes.style,
-  
+
   textStyle: Text.propTypes.style,
   textStyleFocused: Text.propTypes.style,
 
