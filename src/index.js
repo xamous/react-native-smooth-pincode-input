@@ -93,6 +93,7 @@ class SmoothPinCodeInput extends Component {
       containerStyle,
       cellStyle,
       cellStyleFocused,
+      cellStyleFilled,
       textStyle,
       textStyleFocused,
       keyboardType,
@@ -135,19 +136,20 @@ class SmoothPinCodeInput extends Component {
                     },
                     cellStyle,
                     cellFocused ? cellStyleFocused : {},
+                    filled ? cellStyleFilled : {},
                   ]}
                   animation={idx === value.length && focused ? animationFocused : null}
                   iterationCount="infinite"
                   duration={500}
                 >
-                  <Text
+                  {(filled || placeholder !== null) && (<Text
                     style={[
                       textStyle,
                       cellFocused ? textStyleFocused : {},
                     ]}>
                     {filled && (password && (!maskDelay || !last)) ? mask : value.charAt(idx)}
                     {!filled && placeholder}
-                  </Text>
+                  </Text>)}
                 </Animatable.View>
               );
             })
