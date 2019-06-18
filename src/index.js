@@ -49,31 +49,28 @@ class SmoothPinCodeInput extends Component {
     return this.inputRef.current.blur();
   };
 
-  _inputCode = (code) => {
-    const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
-
-    if (onTextChange) {
-      onTextChange(code);
-    }
-    if (code.length === codeLength && onFulfill) {
-      onFulfill(code);
-    }
-
-    // handle password mask
-    const maskDelay = password &&
-      code.length - 1 > this.props.value.length; // only when input new char
-    this.setState({ maskDelay });
-
-    if (maskDelay) { // mask password after delay
-      setTimeout(() => this.setState({ maskDelay: false }), 200);
-    }
-  };
 
   _keyPress = (event) => {
-    if (event.nativeEvent.key === 'Backspace') {
-      const { value, onBackspace } = this.props;
-      if (value === '' && onBackspace) {
-        onBackspace();
+    let {key} = event.nativeEvent;
+    const { value, onBackspace,onTextChange, password, codeLength , onFulfill } = this.props;
+    if (key === 'Backspace') {
+      if (value === '' ) {
+        onBackspace && onBackspace();
+      }else{
+        const code = value.slice(0,value.length-1)
+        onTextChange(code);
+      }
+    }else if (['0','1','2','3','4','5','6','7','8','9',].includes(key) ){
+      const code = value.length>=codeLength ? value : value + key;
+      if (code.length === codeLength && onFulfill) {
+        onFulfill(code);
+      }
+      onTextChange(code)
+      const maskDelay = password
+      this.setState({ maskDelay });
+
+      if (maskDelay) { // mask password after delay
+        setTimeout(() => this.setState({ maskDelay: false }), 200);
       }
     }
   };
@@ -158,7 +155,6 @@ class SmoothPinCodeInput extends Component {
         <TextInput
           value={value}
           ref={this.inputRef}
-          onChangeText={this._inputCode}
           onKeyPress={this._keyPress}
           onFocus={() => this._onFocused(true)}
           onBlur={() => this._onFocused(false)}
@@ -167,10 +163,6 @@ class SmoothPinCodeInput extends Component {
           keyboardType={keyboardType}
           numberOfLines={1}
           maxLength={codeLength}
-          selection={{
-            start: value.length,
-            end: value.length,
-          }}
           style={{
             flex: 1,
             opacity: 0,
