@@ -60,7 +60,7 @@ class SmoothPinCodeInput extends Component {
         const code = value.slice(0,value.length-1)
         onTextChange(code);
       }
-    }else if (['0','1','2','3','4','5','6','7','8','9',].includes(key) ){
+    }else if (['0123456789۰۱۲۳۴۵۶۷۸۹',].includes(key) ){
       const code = value.length>=codeLength ? value : value + key;
       if (code.length === codeLength && onFulfill) {
         onFulfill(code);
