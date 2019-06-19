@@ -166,6 +166,7 @@ class SmoothPinCodeInput extends Component {
           autoFocus={autoFocus}
           keyboardType={keyboardType}
           numberOfLines={1}
+          caretHidden
           maxLength={codeLength}
           selection={{
             start: value.length,
