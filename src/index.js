@@ -169,7 +169,7 @@ class SmoothPinCodeInput extends Component {
           onBlur={() => this._onFocused(false)}
           spellCheck={false}
           autoFocus={autoFocus}
-          keyboardType={Platform.OS !== "web" ? keyboardType : "default"}
+          keyboardType={keyboardType}
           numberOfLines={1}
           maxLength={codeLength}
           selection={{
