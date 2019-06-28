@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet,
   ViewPropTypes,
+  Platform
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
@@ -168,7 +169,7 @@ class SmoothPinCodeInput extends Component {
           onBlur={() => this._onFocused(false)}
           spellCheck={false}
           autoFocus={autoFocus}
-          keyboardType={keyboardType}
+          keyboardType={Platform.OS !== "web" ? keyboardType : "default"}
           numberOfLines={1}
           maxLength={codeLength}
           selection={{
