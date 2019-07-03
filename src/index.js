@@ -53,6 +53,10 @@ class SmoothPinCodeInput extends Component {
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
 
+    if (this.props.restrictToNumbers) {
+      code = (code.match(/[0-9]/g) || []).join("");
+    }
+
     if (onTextChange) {
       onTextChange(code);
     }
@@ -192,6 +196,7 @@ class SmoothPinCodeInput extends Component {
     mask: '*',
     keyboardType: 'numeric',
     autoFocus: false,
+    restrictToNumbers: false,
     containerStyle: styles.containerDefault,
     cellStyle: styles.cellDefault,
     cellStyleFocused: styles.cellFocusedDefault,
@@ -212,6 +217,8 @@ SmoothPinCodeInput.propTypes = {
   password: PropTypes.bool,
 
   autoFocus: PropTypes.bool,
+
+  restrictToNumbers: PropTypes.bool,
 
   containerStyle: ViewPropTypes.style,
 
