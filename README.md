@@ -134,3 +134,5 @@ npm i react-native-smooth-pincode-input
 * [Marco van Dijk](https://github.com/marcovdijk)
 * [geminiyellow](https://github.com/geminiyellow)
 * [jpr-longgame](https://github.com/jpr-longgame)
+* [Ali Kazemkhanloo](https://github.com/alikazemkhanloo)
+* [Ricky Sullivan Himself](https://github.com/rickysullivan)
