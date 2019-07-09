@@ -103,6 +103,7 @@ class SmoothPinCodeInput extends Component {
       textStyleFocused,
       keyboardType,
       animationFocused,
+      testID,
     } = this.props;
     const { maskDelay, focused } = this.state;
     return (
@@ -181,7 +182,8 @@ class SmoothPinCodeInput extends Component {
             flex: 1,
             opacity: 0,
             textAlign: 'center',
-          }} />
+          }}
+          testID={testID || undefined} />
       </Animatable.View>
     );
   }
