@@ -100,6 +100,33 @@ npm i react-native-smooth-pincode-input
   />
 ```
 
+### Custom placeholder and mask using a component
+<img src="./demo/placeholder-mask.gif">
+
+```js
+<SmoothPinCodeInput
+  placeholder={<View style={{
+    width: 10,
+    height: 10,
+    borderRadius: 25,
+    opacity: 0.3,
+    backgroundColor: 'blue',
+  }}></View>}
+  mask={<View style={{
+    width: 10,
+    height: 10,
+    borderRadius: 25,
+    backgroundColor: 'blue',
+  }}></View>}
+  maskDelay={1000}
+  password={true}
+  cellStyle={null}
+  cellStyleFocused={null}
+  value={code}
+  onTextChange={code => this.setState({ code })}
+/>
+```
+
 
 ## Available props
 
