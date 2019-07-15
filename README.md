@@ -109,8 +109,8 @@ npm i react-native-smooth-pincode-input
 | codeLength        | Number                                                                                | 4                                          | Number of character for the input                                                           |
 | cellSize          | Number                                                                                | 48                                         | Size for each cell in input                                                                 |
 | cellSpacing       | Number                                                                                | 4                                          | Space between each cell                                                                     |
-| placeholder       | String                                                                                | ''                                         | Placeholder for each cell                                                                   |
-| mask              | String                                                                                | '*'                                        | Character masking for each cell. Usable with `password` props                               |
+| placeholder       | String|Element                                                                        | ''                                         | Placeholder for each cell, can also pass a component                                        |
+| mask              | String|Element                                                                        | '*'                                        | Character masking for each cell, can also pass a component. Usable with `password` props    |
 | password          | Boolean                                                                               | false                                      | Mask the input value. Each cell masked with `mask` props                                    |
 | autoFocus         | Boolean                                                                               | false                                      | If true, focuses the input on `componentDidMount`                                           |
 | restrictToNumbers | Boolean                                                                               | false                                      | Restrict input to numbers only                                                              |
@@ -136,3 +136,4 @@ npm i react-native-smooth-pincode-input
 * [jpr-longgame](https://github.com/jpr-longgame)
 * [Ali Kazemkhanloo](https://github.com/alikazemkhanloo)
 * [Ricky Sullivan Himself](https://github.com/rickysullivan)
+* [Elements](https://github.com/elementsinteractive)
