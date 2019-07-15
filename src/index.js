@@ -66,11 +66,16 @@ class SmoothPinCodeInput extends Component {
 
     // handle password mask
     const maskDelay = password &&
-      code.length - 1 > this.props.value.length; // only when input new char
+      code.length > this.props.value.length; // only when input new char
     this.setState({ maskDelay });
 
     if (maskDelay) { // mask password after delay
-      setTimeout(() => this.setState({ maskDelay: false }), 200);
+      const maskTimeout = setTimeout(() => {
+          this.setState({ maskDelay: false });
+          clearTimeout(maskTimeout);
+        },
+        this.props.maskDelay
+      );
     }
   };
 
@@ -213,6 +218,7 @@ class SmoothPinCodeInput extends Component {
     placeholder: '',
     password: false,
     mask: '*',
+    maskDelay: 200,
     keyboardType: 'numeric',
     autoFocus: false,
     restrictToNumbers: false,
@@ -239,6 +245,7 @@ SmoothPinCodeInput.propTypes = {
     PropTypes.string,
     PropTypes.element,
   ]),
+  maskDelay: PropTypes.number,
   password: PropTypes.bool,
 
   autoFocus: PropTypes.bool,
