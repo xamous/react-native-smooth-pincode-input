@@ -66,11 +66,16 @@ class SmoothPinCodeInput extends Component {
 
     // handle password mask
     const maskDelay = password &&
-      code.length - 1 > this.props.value.length; // only when input new char
+      code.length > this.props.value.length; // only when input new char
     this.setState({ maskDelay });
 
     if (maskDelay) { // mask password after delay
-      setTimeout(() => this.setState({ maskDelay: false }), 200);
+      const maskTimeout = setTimeout(() => {
+          this.setState({ maskDelay: false });
+          clearTimeout(maskTimeout);
+        },
+        this.props.maskDelay
+      );
     }
   };
 
@@ -127,6 +132,25 @@ class SmoothPinCodeInput extends Component {
               const cellFocused = focused && idx === value.length;
               const filled = idx < value.length;
               const last = (idx === value.length - 1);
+              const showMask = filled && (password && (!maskDelay || !last));
+              const isPlaceholderText = typeof placeholder === 'string';
+              const isMaskText = typeof mask === 'string';
+              const pinCodeChar = value.charAt(idx);
+
+              let cellText = null;
+              if (filled || placeholder !== null) {
+                if (showMask && isMaskText) {
+                  cellText = mask;
+                } else if(!filled && isPlaceholderText) {
+                  cellText = placeholder;
+                } else if (pinCodeChar) {
+                  cellText = pinCodeChar;
+                }
+              }
+
+              const placeholderComponent = !isPlaceholderText ? placeholder : null;
+              const maskComponent = (showMask && !isMaskText) ? mask : null;
+              const isCellText = typeof cellText === 'string';
 
               return (
                 <Animatable.View
@@ -149,14 +173,12 @@ class SmoothPinCodeInput extends Component {
                   iterationCount="infinite"
                   duration={500}
                 >
-                  {(filled || placeholder !== null) && (<Text
-                    style={[
-                      textStyle,
-                      cellFocused ? textStyleFocused : {},
-                    ]}>
-                    {filled && (password && (!maskDelay || !last)) ? mask : value.charAt(idx)}
-                    {!filled && placeholder}
-                  </Text>)}
+                  {isCellText && !maskComponent && <Text style={[textStyle, cellFocused ? textStyleFocused : {}]}>
+                    {cellText}
+                  </Text>}
+
+                  {(!isCellText && !maskComponent) && placeholderComponent}
+                  {isCellText && maskComponent}
                 </Animatable.View>
               );
             })
@@ -198,6 +220,7 @@ class SmoothPinCodeInput extends Component {
     placeholder: '',
     password: false,
     mask: '*',
+    maskDelay: 200,
     keyboardType: 'numeric',
     autoFocus: false,
     restrictToNumbers: false,
@@ -217,8 +240,15 @@ SmoothPinCodeInput.propTypes = {
   cellSize: PropTypes.number,
   cellSpacing: PropTypes.number,
 
-  placeholder: PropTypes.string,
-  mask: PropTypes.string,
+  placeholder: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  mask: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  maskDelay: PropTypes.number,
   password: PropTypes.bool,
 
   autoFocus: PropTypes.bool,
