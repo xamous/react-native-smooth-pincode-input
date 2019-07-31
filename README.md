@@ -100,6 +100,33 @@ npm i react-native-smooth-pincode-input
   />
 ```
 
+### Custom placeholder and mask using a component
+<img src="./demo/placeholder-mask.gif">
+
+```js
+<SmoothPinCodeInput
+  placeholder={<View style={{
+    width: 10,
+    height: 10,
+    borderRadius: 25,
+    opacity: 0.3,
+    backgroundColor: 'blue',
+  }}></View>}
+  mask={<View style={{
+    width: 10,
+    height: 10,
+    borderRadius: 25,
+    backgroundColor: 'blue',
+  }}></View>}
+  maskDelay={1000}
+  password={true}
+  cellStyle={null}
+  cellStyleFocused={null}
+  value={code}
+  onTextChange={code => this.setState({ code })}
+/>
+```
+
 
 ## Available props
 
@@ -109,8 +136,9 @@ npm i react-native-smooth-pincode-input
 | codeLength        | Number                                                                                | 4                                          | Number of character for the input                                                           |
 | cellSize          | Number                                                                                | 48                                         | Size for each cell in input                                                                 |
 | cellSpacing       | Number                                                                                | 4                                          | Space between each cell                                                                     |
-| placeholder       | String                                                                                | ''                                         | Placeholder for each cell                                                                   |
-| mask              | String                                                                                | '*'                                        | Character masking for each cell. Usable with `password` props                               |
+| placeholder       | String|Element                                                                        | ''                                         | Placeholder for each cell, can also pass a component                                        |
+| mask              | String|Element                                                                        | '*'                                        | Character masking for each cell, can also pass a component. Usable with `password` props    |
+| maskDelay         | Number                                                                                | 200                                        | The delay in milliseconds before a character is masked                                      |
 | password          | Boolean                                                                               | false                                      | Mask the input value. Each cell masked with `mask` props                                    |
 | autoFocus         | Boolean                                                                               | false                                      | If true, focuses the input on `componentDidMount`                                           |
 | editable          | Boolean                                                                               | true                                       | If false, makes each cell not editable                                                      |
@@ -137,3 +165,4 @@ npm i react-native-smooth-pincode-input
 * [jpr-longgame](https://github.com/jpr-longgame)
 * [Ali Kazemkhanloo](https://github.com/alikazemkhanloo)
 * [Ricky Sullivan Himself](https://github.com/rickysullivan)
+* [Elements](https://github.com/elementsinteractive)

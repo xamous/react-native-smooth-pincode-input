@@ -86,6 +86,31 @@ export default class App extends React.Component {
             />
         </View>
 
+        {/* Custom placeholder & mask */}
+        <View style={styles.section}>
+          <Text style={styles.title}>Custom Placeholder</Text>
+          <SmoothPinCodeInput
+            placeholder={<View style={{
+              width: 10,
+              height: 10,
+              borderRadius: 25,
+              opacity: 0.3,
+              backgroundColor: 'blue',
+            }}></View>}
+            mask={<View style={{
+              width: 10,
+              height: 10,
+              borderRadius: 25,
+              backgroundColor: 'blue',
+            }}></View>}
+            maskDelay={1000}
+            password={true}
+            cellStyle={null}
+            cellStyleFocused={null}
+            value={code}
+            onTextChange={code => this.setState({ code })}
+          />
+        </View>
       </View>
     );
   }
