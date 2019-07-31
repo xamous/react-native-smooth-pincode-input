@@ -109,7 +109,7 @@ class SmoothPinCodeInput extends Component {
       keyboardType,
       animationFocused,
       testID,
-      editable
+      editable,
       inputProps,
     } = this.props;
     const { maskDelay, focused } = this.state;
