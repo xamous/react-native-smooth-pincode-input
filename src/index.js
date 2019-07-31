@@ -109,6 +109,7 @@ class SmoothPinCodeInput extends Component {
       keyboardType,
       animationFocused,
       testID,
+      editable
       inputProps,
     } = this.props;
     const { maskDelay, focused } = this.state;
@@ -207,6 +208,7 @@ class SmoothPinCodeInput extends Component {
             textAlign: 'center',
           }}
           testID={testID || undefined}
+          editable={editable} 
           {...inputProps} />
       </Animatable.View>
     );
@@ -230,6 +232,7 @@ class SmoothPinCodeInput extends Component {
     textStyle: styles.textStyleDefault,
     textStyleFocused: styles.textStyleFocusedDefault,
     animationFocused: 'pulse',
+    editable: true,
     inputProps: {},
   };
 }
@@ -273,7 +276,7 @@ SmoothPinCodeInput.propTypes = {
   onBackspace: PropTypes.func,
 
   keyboardType: PropTypes.string,
-
+  editable: PropTypes.bool,
   inputProps: PropTypes.exact(TextInput.propTypes),
 };
 
