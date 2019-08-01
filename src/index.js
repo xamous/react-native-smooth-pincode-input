@@ -107,6 +107,7 @@ class SmoothPinCodeInput extends Component {
       textStyle,
       textStyleFocused,
       keyboardType,
+      keyboardAppearance,
       animationFocused,
       testID,
       editable,
@@ -195,6 +196,7 @@ class SmoothPinCodeInput extends Component {
           spellCheck={false}
           autoFocus={autoFocus}
           keyboardType={keyboardType}
+          keyboardAppearance={keyboardAppearance}
           numberOfLines={1}
           caretHidden
           maxLength={codeLength}
@@ -224,6 +226,7 @@ class SmoothPinCodeInput extends Component {
     mask: '*',
     maskDelay: 200,
     keyboardType: 'numeric',
+    keyboardAppearance: 'default',
     autoFocus: false,
     restrictToNumbers: false,
     containerStyle: styles.containerDefault,
@@ -276,6 +279,7 @@ SmoothPinCodeInput.propTypes = {
   onBackspace: PropTypes.func,
 
   keyboardType: PropTypes.string,
+  keyboardAppearance: PropTypes.oneOf(['default', 'light', 'dark']),
   editable: PropTypes.bool,
   inputProps: PropTypes.exact(TextInput.propTypes),
 };
