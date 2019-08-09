@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  I18nManager,
-  ViewPropTypes,
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, I18nManager, ViewPropTypes } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 const styles = StyleSheet.create({
@@ -30,7 +23,6 @@ const styles = StyleSheet.create({
 });
 
 class SmoothPinCodeInput extends Component {
-
   state = {
     maskDelay: false,
     focused: false,
@@ -50,11 +42,11 @@ class SmoothPinCodeInput extends Component {
     return this.inputRef.current.blur();
   };
 
-  _inputCode = (code) => {
+  _inputCode = code => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
 
     if (this.props.restrictToNumbers) {
-      code = (code.match(/[0-9]/g) || []).join("");
+      code = (code.match(/[0-9]/g) || []).join('');
     }
 
     if (onTextChange) {
@@ -65,21 +57,19 @@ class SmoothPinCodeInput extends Component {
     }
 
     // handle password mask
-    const maskDelay = password &&
-      code.length > this.props.value.length; // only when input new char
+    const maskDelay = password && code.length > this.props.value.length; // only when input new char
     this.setState({ maskDelay });
 
-    if (maskDelay) { // mask password after delay
+    if (maskDelay) {
+      // mask password after delay
       const maskTimeout = setTimeout(() => {
-          this.setState({ maskDelay: false });
-          clearTimeout(maskTimeout);
-        },
-        this.props.maskDelay
-      );
+        this.setState({ maskDelay: false });
+        clearTimeout(maskTimeout);
+      }, this.props.maskDelay);
     }
   };
 
-  _keyPress = (event) => {
+  _keyPress = event => {
     if (event.nativeEvent.key === 'Backspace') {
       const { value, onBackspace } = this.props;
       if (value === '' && onBackspace) {
@@ -88,14 +78,26 @@ class SmoothPinCodeInput extends Component {
     }
   };
 
-  _onFocused = (focused) => {
-    this.setState({ focused });
+  _onFocused = () => {
+    this.setState({ focused: true });
+    if (typeof this.props.onFocus === 'function') {
+      this.props.onFocus();
+    }
+  };
+
+  _onBlurred = () => {
+    this.setState({ focused: false });
+    if (typeof this.props.onBlur === 'function') {
+      this.props.onBlur();
+    }
   };
 
   render() {
     const {
       value,
-      codeLength, cellSize, cellSpacing,
+      codeLength,
+      cellSize,
+      cellSpacing,
       placeholder,
       password,
       mask,
@@ -116,82 +118,89 @@ class SmoothPinCodeInput extends Component {
     return (
       <Animatable.View
         ref={this.ref}
-        style={[{
-          alignItems: 'stretch', flexDirection: 'row', justifyContent: 'center', position: 'relative',
-          width: cellSize * codeLength + cellSpacing * (codeLength - 1),
-          height: cellSize,
-        },
-          containerStyle,
-        ]}>
-        <View style={{
-          position: 'absolute', margin: 0, height: '100%',
-          flexDirection: I18nManager.isRTL ? 'row-reverse': 'row',
-          alignItems: 'center',
-        }}>
+        style={[
           {
-            Array.apply(null, Array(codeLength)).map((_, idx) => {
-              const cellFocused = focused && idx === value.length;
-              const filled = idx < value.length;
-              const last = (idx === value.length - 1);
-              const showMask = filled && (password && (!maskDelay || !last));
-              const isPlaceholderText = typeof placeholder === 'string';
-              const isMaskText = typeof mask === 'string';
-              const pinCodeChar = value.charAt(idx);
+            alignItems: 'stretch',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            position: 'relative',
+            width: cellSize * codeLength + cellSpacing * (codeLength - 1),
+            height: cellSize,
+          },
+          containerStyle,
+        ]}
+      >
+        <View
+          style={{
+            position: 'absolute',
+            margin: 0,
+            height: '100%',
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+            alignItems: 'center',
+          }}
+        >
+          {Array.apply(null, Array(codeLength)).map((_, idx) => {
+            const cellFocused = focused && idx === value.length;
+            const filled = idx < value.length;
+            const last = idx === value.length - 1;
+            const showMask = filled && (password && (!maskDelay || !last));
+            const isPlaceholderText = typeof placeholder === 'string';
+            const isMaskText = typeof mask === 'string';
+            const pinCodeChar = value.charAt(idx);
 
-              let cellText = null;
-              if (filled || placeholder !== null) {
-                if (showMask && isMaskText) {
-                  cellText = mask;
-                } else if(!filled && isPlaceholderText) {
-                  cellText = placeholder;
-                } else if (pinCodeChar) {
-                  cellText = pinCodeChar;
-                }
+            let cellText = null;
+            if (filled || placeholder !== null) {
+              if (showMask && isMaskText) {
+                cellText = mask;
+              } else if (!filled && isPlaceholderText) {
+                cellText = placeholder;
+              } else if (pinCodeChar) {
+                cellText = pinCodeChar;
               }
+            }
 
-              const placeholderComponent = !isPlaceholderText ? placeholder : null;
-              const maskComponent = (showMask && !isMaskText) ? mask : null;
-              const isCellText = typeof cellText === 'string';
+            const placeholderComponent = !isPlaceholderText ? placeholder : null;
+            const maskComponent = showMask && !isMaskText ? mask : null;
+            const isCellText = typeof cellText === 'string';
 
-              return (
-                <Animatable.View
-                  key={idx}
-                  style={[
-                    {
-                      width: cellSize,
-                      height: cellSize,
-                      marginLeft: cellSpacing / 2,
-                      marginRight: cellSpacing / 2,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    },
-                    cellStyle,
-                    cellFocused ? cellStyleFocused : {},
-                    filled ? cellStyleFilled : {},
-                  ]}
-                  animation={idx === value.length && focused ? animationFocused : null}
-                  iterationCount="infinite"
-                  duration={500}
-                >
-                  {isCellText && !maskComponent && <Text style={[textStyle, cellFocused ? textStyleFocused : {}]}>
-                    {cellText}
-                  </Text>}
+            return (
+              <Animatable.View
+                key={idx}
+                style={[
+                  {
+                    width: cellSize,
+                    height: cellSize,
+                    marginLeft: cellSpacing / 2,
+                    marginRight: cellSpacing / 2,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  },
+                  cellStyle,
+                  cellFocused ? cellStyleFocused : {},
+                  filled ? cellStyleFilled : {},
+                ]}
+                animation={idx === value.length && focused ? animationFocused : null}
+                iterationCount="infinite"
+                duration={500}
+              >
+                {isCellText && !maskComponent && (
+                  <Text style={[textStyle, cellFocused ? textStyleFocused : {}]}>{cellText}</Text>
+                )}
 
-                  {(!isCellText && !maskComponent) && placeholderComponent}
-                  {isCellText && maskComponent}
-                </Animatable.View>
-              );
-            })
-          }
+                {!isCellText && !maskComponent && placeholderComponent}
+                {isCellText && maskComponent}
+              </Animatable.View>
+            );
+          })}
         </View>
         <TextInput
           value={value}
           ref={this.inputRef}
           onChangeText={this._inputCode}
           onKeyPress={this._keyPress}
-          onFocus={() => this._onFocused(true)}
-          onBlur={() => this._onFocused(false)}
+          onFocus={() => this._onFocused()}
+          onBlur={() => this._onBlurred()}
           spellCheck={false}
           autoFocus={autoFocus}
           keyboardType={keyboardType}
@@ -208,8 +217,9 @@ class SmoothPinCodeInput extends Component {
             textAlign: 'center',
           }}
           testID={testID || undefined}
-          editable={editable} 
-          {...inputProps} />
+          editable={editable}
+          {...inputProps}
+        />
       </Animatable.View>
     );
   }
@@ -243,14 +253,8 @@ SmoothPinCodeInput.propTypes = {
   cellSize: PropTypes.number,
   cellSpacing: PropTypes.number,
 
-  placeholder: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-  mask: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  mask: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   maskDelay: PropTypes.number,
   password: PropTypes.bool,
 
@@ -266,14 +270,13 @@ SmoothPinCodeInput.propTypes = {
   textStyle: Text.propTypes.style,
   textStyleFocused: Text.propTypes.style,
 
-  animationFocused: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  animationFocused: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
   onFulfill: PropTypes.func,
   onChangeText: PropTypes.func,
   onBackspace: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
 
   keyboardType: PropTypes.string,
   editable: PropTypes.bool,
