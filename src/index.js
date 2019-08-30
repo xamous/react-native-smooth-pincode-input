@@ -186,6 +186,7 @@ class SmoothPinCodeInput extends Component {
           }
         </View>
         <TextInput
+          disableFullscreenUI={true}
           value={value}
           ref={this.inputRef}
           onChangeText={this._inputCode}
