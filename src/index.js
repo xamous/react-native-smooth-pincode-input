@@ -45,6 +45,8 @@ class SmoothPinCodeInput extends Component {
     return this.ref.current[animation](duration);
   };
 
+  shake = this.animate({animation: "shake"});
+
   focus = () => {
     return this.inputRef.current.focus();
   };
@@ -272,7 +274,7 @@ SmoothPinCodeInput.propTypes = {
   textStyle: Text.propTypes.style,
   textStyleFocused: Text.propTypes.style,
 
-  animations: PropTypes.bool,
+  animated: PropTypes.bool,
   animationFocused: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
