@@ -50,6 +50,10 @@ class SmoothPinCodeInput extends Component {
     return this.inputRef.current.blur();
   };
 
+  clear = () => {
+    return this.inputRef.current.clear();
+  };
+
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
 
