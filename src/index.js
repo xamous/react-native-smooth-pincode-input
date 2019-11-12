@@ -38,9 +38,14 @@ class SmoothPinCodeInput extends Component {
   ref = React.createRef();
   inputRef = React.createRef();
 
-  shake = () => {
-    return this.ref.current.shake(650);
+  animate = ({ animation = "shake", duration = 650 }) => {
+    if (!this.props.animated) {
+      return new Promise((resolve, reject) => reject(new Error("Animations are disabled")));
+    }
+    return this.ref.current[animation](duration);
   };
+
+  shake = () => this.animate({animation: "shake"});
 
   focus = () => {
     return this.inputRef.current.focus();
@@ -126,6 +131,7 @@ class SmoothPinCodeInput extends Component {
       textStyleFocused,
       keyboardType,
       animationFocused,
+      animated,
       testID,
       editable,
       inputProps,
@@ -189,7 +195,7 @@ class SmoothPinCodeInput extends Component {
                     cellFocused ? cellStyleFocused : {},
                     filled ? cellStyleFilled : {},
                   ]}
-                  animation={idx === value.length && focused ? animationFocused : null}
+                  animation={idx === value.length && focused && animated ? animationFocused : null}
                   iterationCount="infinite"
                   duration={500}
                 >
@@ -252,6 +258,7 @@ class SmoothPinCodeInput extends Component {
     textStyle: styles.textStyleDefault,
     textStyleFocused: styles.textStyleFocusedDefault,
     animationFocused: 'pulse',
+    animated: true,
     editable: true,
     inputProps: {},
     disableFullscreenUI: true,
@@ -283,10 +290,12 @@ SmoothPinCodeInput.propTypes = {
 
   cellStyle: ViewPropTypes.style,
   cellStyleFocused: ViewPropTypes.style,
+  cellStyleFilled: ViewPropTypes.style,
 
   textStyle: Text.propTypes.style,
   textStyleFocused: Text.propTypes.style,
 
+  animated: PropTypes.bool,
   animationFocused: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
@@ -295,9 +304,10 @@ SmoothPinCodeInput.propTypes = {
   onFulfill: PropTypes.func,
   onChangeText: PropTypes.func,
   onBackspace: PropTypes.func,
+  onTextChange: PropTypes.func,
+  testID: PropTypes.any,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-
   keyboardType: PropTypes.string,
   editable: PropTypes.bool,
   inputProps: PropTypes.exact(TextInput.propTypes),
