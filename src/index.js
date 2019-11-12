@@ -55,6 +55,10 @@ class SmoothPinCodeInput extends Component {
     return this.inputRef.current.blur();
   };
 
+  clear = () => {
+    return this.inputRef.current.clear();
+  };
+
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
 
@@ -75,9 +79,9 @@ class SmoothPinCodeInput extends Component {
     this.setState({ maskDelay });
 
     if (maskDelay) { // mask password after delay
-      const maskTimeout = setTimeout(() => {
+      clearTimeout(this.maskTimeout);
+      this.maskTimeout = setTimeout(() => {
           this.setState({ maskDelay: false });
-          clearTimeout(maskTimeout);
         },
         this.props.maskDelay
       );
@@ -93,9 +97,23 @@ class SmoothPinCodeInput extends Component {
     }
   };
 
-  _onFocused = (focused) => {
-    this.setState({ focused });
+  _onFocused = () => {
+    this.setState({ focused: true });
+    if (typeof this.props.onFocus === 'function') {
+      this.props.onFocus();
+    }
   };
+
+  _onBlurred = () => {
+    this.setState({ focused: false });
+    if (typeof this.props.onBlur === 'function') {
+      this.props.onBlur();
+    }
+  };
+
+  componentWillUnmount() {
+    clearTimeout(this.maskTimeout);
+  }
 
   render() {
     const {
@@ -117,6 +135,7 @@ class SmoothPinCodeInput extends Component {
       testID,
       editable,
       inputProps,
+      disableFullscreenUI,
     } = this.props;
     const { maskDelay, focused } = this.state;
     return (
@@ -192,12 +211,13 @@ class SmoothPinCodeInput extends Component {
           }
         </View>
         <TextInput
+          disableFullscreenUI={disableFullscreenUI}
           value={value}
           ref={this.inputRef}
           onChangeText={this._inputCode}
           onKeyPress={this._keyPress}
-          onFocus={() => this._onFocused(true)}
-          onBlur={() => this._onFocused(false)}
+          onFocus={() => this._onFocused()}
+          onBlur={() => this._onBlurred()}
           spellCheck={false}
           autoFocus={autoFocus}
           keyboardType={keyboardType}
@@ -214,7 +234,7 @@ class SmoothPinCodeInput extends Component {
             textAlign: 'center',
           }}
           testID={testID || undefined}
-          editable={editable} 
+          editable={editable}
           {...inputProps} />
       </Animatable.View>
     );
@@ -241,6 +261,7 @@ class SmoothPinCodeInput extends Component {
     animated: true,
     editable: true,
     inputProps: {},
+    disableFullscreenUI: true,
   };
 }
 
@@ -284,9 +305,9 @@ SmoothPinCodeInput.propTypes = {
   onChangeText: PropTypes.func,
   onBackspace: PropTypes.func,
   onTextChange: PropTypes.func,
-
   testID: PropTypes.any,
-
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
   keyboardType: PropTypes.string,
   editable: PropTypes.bool,
   inputProps: PropTypes.exact(TextInput.propTypes),
