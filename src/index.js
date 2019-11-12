@@ -129,6 +129,7 @@ class SmoothPinCodeInput extends Component {
       testID,
       editable,
       inputProps,
+      disableFullscreenUI,
     } = this.props;
     const { maskDelay, focused } = this.state;
     return (
@@ -204,6 +205,7 @@ class SmoothPinCodeInput extends Component {
           }
         </View>
         <TextInput
+          disableFullscreenUI={disableFullscreenUI}
           value={value}
           ref={this.inputRef}
           onChangeText={this._inputCode}
@@ -252,6 +254,7 @@ class SmoothPinCodeInput extends Component {
     animationFocused: 'pulse',
     editable: true,
     inputProps: {},
+    disableFullscreenUI: true,
   };
 }
 
