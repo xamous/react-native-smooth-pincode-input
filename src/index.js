@@ -92,8 +92,18 @@ class SmoothPinCodeInput extends Component {
     }
   };
 
-  _onFocused = (focused) => {
-    this.setState({ focused });
+  _onFocused = () => {
+    this.setState({ focused: true });
+    if (typeof this.props.onFocus === 'function') {
+      this.props.onFocus();
+    }
+  };
+
+  _onBlurred = () => {
+    this.setState({ focused: false });
+    if (typeof this.props.onBlur === 'function') {
+      this.props.onBlur();
+    }
   };
 
   componentWillUnmount() {
@@ -198,8 +208,8 @@ class SmoothPinCodeInput extends Component {
           ref={this.inputRef}
           onChangeText={this._inputCode}
           onKeyPress={this._keyPress}
-          onFocus={() => this._onFocused(true)}
-          onBlur={() => this._onFocused(false)}
+          onFocus={() => this._onFocused()}
+          onBlur={() => this._onBlurred()}
           spellCheck={false}
           autoFocus={autoFocus}
           keyboardType={keyboardType}
@@ -282,6 +292,8 @@ SmoothPinCodeInput.propTypes = {
   onFulfill: PropTypes.func,
   onChangeText: PropTypes.func,
   onBackspace: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
 
   keyboardType: PropTypes.string,
   editable: PropTypes.bool,
