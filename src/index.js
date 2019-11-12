@@ -50,6 +50,10 @@ class SmoothPinCodeInput extends Component {
     return this.inputRef.current.blur();
   };
 
+  clear = () => {
+    return this.inputRef.current.clear();
+  };
+
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
 
@@ -70,9 +74,9 @@ class SmoothPinCodeInput extends Component {
     this.setState({ maskDelay });
 
     if (maskDelay) { // mask password after delay
-      const maskTimeout = setTimeout(() => {
+      clearTimeout(this.maskTimeout);
+      this.maskTimeout = setTimeout(() => {
           this.setState({ maskDelay: false });
-          clearTimeout(maskTimeout);
         },
         this.props.maskDelay
       );
@@ -91,6 +95,10 @@ class SmoothPinCodeInput extends Component {
   _onFocused = (focused) => {
     this.setState({ focused });
   };
+
+  componentWillUnmount() {
+    clearTimeout(this.maskTimeout);
+  }
 
   render() {
     const {
@@ -208,7 +216,7 @@ class SmoothPinCodeInput extends Component {
             textAlign: 'center',
           }}
           testID={testID || undefined}
-          editable={editable} 
+          editable={editable}
           {...inputProps} />
       </Animatable.View>
     );
