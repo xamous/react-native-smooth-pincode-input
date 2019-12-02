@@ -70,7 +70,9 @@ class SmoothPinCodeInput extends Component {
       onTextChange(code);
     }
     if (code.length === codeLength && onFulfill) {
-      onFulfill(code);
+      //Wait for last character state update before submit
+      setTimeout(() => onFulfill(code), 50 );
+      
     }
 
     // handle password mask
