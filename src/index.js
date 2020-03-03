@@ -129,6 +129,7 @@ class SmoothPinCodeInput extends Component {
       cellStyleFilled,
       textStyle,
       textStyleFocused,
+      textStyleFilled,
       keyboardType,
       animationFocused,
       animated,
@@ -199,7 +200,7 @@ class SmoothPinCodeInput extends Component {
                   iterationCount="infinite"
                   duration={500}
                 >
-                  {isCellText && !maskComponent && <Text style={[textStyle, cellFocused ? textStyleFocused : {}]}>
+                  {isCellText && !maskComponent && <Text style={[textStyle, filled ? textStyleFilled : null, cellFocused ? textStyleFocused : {}]}>
                     {cellText}
                   </Text>}
 
@@ -294,6 +295,7 @@ SmoothPinCodeInput.propTypes = {
 
   textStyle: Text.propTypes.style,
   textStyleFocused: Text.propTypes.style,
+  textStyleFilled: Text.propTypes.style,
 
   animated: PropTypes.bool,
   animationFocused: PropTypes.oneOfType([
