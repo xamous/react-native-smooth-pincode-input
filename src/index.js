@@ -124,6 +124,7 @@ class SmoothPinCodeInput extends Component {
       mask,
       autoFocus,
       containerStyle,
+      cellsRowStyle,
       cellStyle,
       cellStyleFocused,
       cellStyleFilled,
@@ -148,11 +149,13 @@ class SmoothPinCodeInput extends Component {
         },
           containerStyle,
         ]}>
-        <View style={{
+        <View style={[{
           position: 'absolute', margin: 0, height: '100%',
           flexDirection: I18nManager.isRTL ? 'row-reverse': 'row',
           alignItems: 'center',
-        }}>
+        },
+          cellsRowStyle
+        ]}>
           {
             Array.apply(null, Array(codeLength)).map((_, idx) => {
               const cellFocused = focused && idx === value.length;
@@ -288,6 +291,7 @@ SmoothPinCodeInput.propTypes = {
 
   containerStyle: ViewPropTypes.style,
 
+  cellsRowStyle: ViewPropTypes.style,
   cellStyle: ViewPropTypes.style,
   cellStyleFocused: ViewPropTypes.style,
   cellStyleFilled: ViewPropTypes.style,
