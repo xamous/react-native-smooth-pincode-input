@@ -133,6 +133,7 @@ class SmoothPinCodeInput extends Component {
       animationFocused,
       animated,
       testID,
+      accessibilityLabel,
       editable,
       inputProps,
       disableFullscreenUI,
@@ -234,6 +235,7 @@ class SmoothPinCodeInput extends Component {
             textAlign: 'center',
           }}
           testID={testID || undefined}
+          accessibilityLabel={accessibilityLabel || undefined}
           editable={editable}
           {...inputProps} />
       </Animatable.View>
