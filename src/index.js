@@ -6,8 +6,10 @@ import {
   TextInput,
   StyleSheet,
   I18nManager,
-  ViewPropTypes,
 } from 'react-native';
+
+import {ViewPropTypes} from 'deprecated-react-native-prop-types';
+
 import * as Animatable from 'react-native-animatable';
 
 const styles = StyleSheet.create({
