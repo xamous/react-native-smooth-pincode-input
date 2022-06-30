@@ -150,11 +150,13 @@ class SmoothPinCodeInput extends Component {
         },
           containerStyle,
         ]}>
-        <View style={{
+        <View style={[{
           position: 'absolute', margin: 0, height: '100%',
           flexDirection: I18nManager.isRTL ? 'row-reverse': 'row',
           alignItems: 'center',
-        }}>
+        },
+         cellsContainerDefault,          
+       ]}>
           {
             Array.apply(null, Array(codeLength)).map((_, idx) => {
               const cellFocused = focused && idx === value.length;
