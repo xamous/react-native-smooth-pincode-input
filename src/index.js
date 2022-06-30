@@ -12,6 +12,7 @@ import * as Animatable from 'react-native-animatable';
 
 const styles = StyleSheet.create({
   containerDefault: {},
+  cellsContainerDefault: {},
   cellDefault: {
     borderColor: 'gray',
     borderWidth: 1,
@@ -124,6 +125,7 @@ class SmoothPinCodeInput extends Component {
       mask,
       autoFocus,
       containerStyle,
+      cellsContainerStyle,
       cellStyle,
       cellStyleFocused,
       cellStyleFilled,
@@ -253,6 +255,7 @@ class SmoothPinCodeInput extends Component {
     autoFocus: false,
     restrictToNumbers: false,
     containerStyle: styles.containerDefault,
+    cellsContainerStyle: styles.cellsContainerDefault,
     cellStyle: styles.cellDefault,
     cellStyleFocused: styles.cellFocusedDefault,
     textStyle: styles.textStyleDefault,
