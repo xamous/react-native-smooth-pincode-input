@@ -155,7 +155,7 @@ class SmoothPinCodeInput extends Component {
           flexDirection: I18nManager.isRTL ? 'row-reverse': 'row',
           alignItems: 'center',
         },
-         cellsContainerDefault,          
+         cellsContainerStyle,          
        ]}>
           {
             Array.apply(null, Array(codeLength)).map((_, idx) => {
